@@ -27,7 +27,7 @@ public class HelloWorld {
         // Описываем, что загрузится по адресу /
         app.get("/", ctx -> ctx.render("index.jte"));
 
-        app.get("/users", ctx -> ctx.result("GET /users"));
+        app.get("/users", ctx -> ctx.render("users/index.jte"));
 
         app.post("/users", ctx -> ctx.result("POST /users"));
 
@@ -60,8 +60,8 @@ public class HelloWorld {
         app.get("/users/{id}", ctx -> {
             var id = ctx.pathParam("id");
             var escapedId = StringEscapeUtils.escapeHtml4(id);
-            ctx.contentType("html");
-            ctx.result("<h1>" + escapedId + "</h1>");
+            var page = id;
+            ctx.render("users/show.jte", model("page", page));
         });
 
         app.start(7070); // Стартуем веб-сервер
