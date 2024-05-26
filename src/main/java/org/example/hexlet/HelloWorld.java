@@ -12,6 +12,8 @@ import io.javalin.Javalin;
 import io.javalin.http.NotFoundResponse;
 import io.javalin.rendering.template.JavalinJte;
 
+import org.apache.commons.text.StringEscapeUtils;
+
 public class HelloWorld {
     // Каждый курс представлен объектом класса Course
     private static final List<Course> COURSES= Data.getCourses();
@@ -53,6 +55,13 @@ public class HelloWorld {
             var header = "Все курсы";
             var page = new CoursesPage(courses, header);
             ctx.render("courses/index.jte", model("page", page));
+        });
+
+        app.get("/users/{id}", ctx -> {
+            var id = ctx.pathParam("id");
+            var escapedId = StringEscapeUtils.escapeHtml4(id);
+            ctx.contentType("html");
+            ctx.result("<h1>" + escapedId + "</h1>");
         });
 
         app.start(7070); // Стартуем веб-сервер
