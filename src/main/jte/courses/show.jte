@@ -1,22 +1,26 @@
 @import org.example.hexlet.dto.courses.CoursePage
 @param CoursePage page
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
-            crossorigin="anonymous">
-        <title>Course</title>
-    </head>
-    <body>
-        <h1>Course</h1>
-            <div>
-                <h2>${page.getCourse().getName()}</h2>
-                <p>${page.getCourse().getDescription()}</p>
-            </div>
-    </body>
-</html>
+@template.layout.page(
+navActive = @`
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+            <li><a href="/" class="nav-link px-2 text-white">Home</a></li>
+            <li><a href="/courses" class="nav-link px-2 text-secondary">Courses</a></li>
+            <li><a href="/users" class="nav-link px-2 text-white">Users</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+            <li><a href="#" class="nav-link px-2 text-white">About</a></li>
+          </ul>
+`,
+  content = @`
+  <div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">${page.getCourse().getName()}</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead mb-4">${page.getCourse().getDescription()}</p>
+      <div class="d-grid gap-2 justify-content-sm-center">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Previous</button>
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">Next</button>
+      </div>
+    </div>
+  </div>
+  `
+)
